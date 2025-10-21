@@ -226,19 +226,10 @@ footer:before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;b
 .back-to-top.visible{opacity:1;transform:translateY(0)}
 .back-to-top:hover{background:var(--primary-dark)}
 
-/* ---------------- SAFARI FIXES CONTINUED ---------------- */
-
-/* Убираем градиентное переливание для карточек услуг на iPhone Safari */
+/* ---------------- SAFARI (iPhone) FIXES ---------------- */
 @supports (-webkit-touch-callout: none) {
-  .service-card::before {
-    content: none !important;
-    background: none !important;
-    display: block !important;
-  }
-}
 
-/* Скрываем кнопку "пауза" и любые системные контролы видео в hero */
-@supports (-webkit-touch-callout: none) {
+  /* 1. УБРАТЬ ИКОНКУ "ПАУЗА" НА ВИДЕО В HERO */
   .hero-video::-webkit-media-controls,
   .hero-video::-webkit-media-controls-enclosure,
   .hero-video::-webkit-media-controls-start-playback-button,
@@ -249,9 +240,54 @@ footer:before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;b
   }
 
   .hero-video {
-    pointer-events: none !important; /* гарантированно скрывает интерфейс */
+    pointer-events: none !important; /* блокирует системные элементы управления */
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* 2. ИСПРАВИТЬ ВЫЛАЗЯЩИЕ КАРТОЧКИ ПОРТФОЛИО */
+  .portfolio-item {
+    height: auto !important;
+    aspect-ratio: 9 / 16 !important; /* удерживает правильное соотношение сторон */
+    width: 75vw !important;
+    max-width: 320px !important;
+    min-width: 200px !important;
+    flex: 0 0 auto !important;
+    overflow: hidden !important;
+    border-radius: 16px !important;
+    box-sizing: border-box !important;
+  }
+
+  .portfolio-item video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 16px !important;
+    display: block !important;
+  }
+
+  .portfolio-scroll {
+    overflow-x: auto !important;
+    padding-bottom: 12px !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* 3. УМЕНЬШИТЬ КАРТОЧКИ ТОВАРОВ (HOME CARE) НА IPHONE */
+  .product-card {
+    width: 280px !important;
+    min-width: 260px !important;
+    max-width: 80vw !important;
+  }
+
+  .product-image {
+    height: 200px !important;
+  }
+
+  .product-description {
+    font-size: 0.9rem !important;
   }
 }
+
 
 </style>
 </head>
